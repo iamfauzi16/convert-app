@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BankController;
+
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\ProviderController;
@@ -41,7 +41,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     Route::resource('providers', ProviderController::class)->except('index');
 
-    Route::resource('banks', BankController::class);
 });
 
 

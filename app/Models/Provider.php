@@ -13,8 +13,8 @@ class Provider extends Model
     return $this->belongsTo(NumberTransfer::class);
   }
 
-  public function transactions()
+  public function transaction()
   {
-    return $this->hasMany(Transaction::class);
+    return $this->belongsTo(Transaction::class);
   }
 }

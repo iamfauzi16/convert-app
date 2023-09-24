@@ -9,7 +9,10 @@ class NumberTransfer extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'number_transfer', 'keterangan'
+    ];
+    
     public function providers() 
     {
         return $this->hasMany(Provider::class);
