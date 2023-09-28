@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RootController;
+use App\Http\Controllers\BankUserController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\Auth\ProfileController;
 
 
 /*
@@ -36,4 +38,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transaction-web.edit');
     Route::put('transactions/{id}', [TransactionController::class, 'update'])->name('transaction-web.update');
     Route::delete('transactions/{id}', [TransactionController::class, 'destroy'])->name('transaction-web.destroy');
+
+
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('bank-user/create', [BankUserController::class, 'create'])->name('bank-user.create');
+    Route::post('bank-user', [BankUserController::class, 'store'])->name('bank-user.store');
+
 });

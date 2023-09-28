@@ -6,16 +6,16 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\Banner;
+use \App\Models\Confirmation;
 
-class BannerController extends AdminController
+class ConfirmationController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Banner';
+    protected $title = 'Confirmation';
 
     /**
      * Make a grid builder.
@@ -24,16 +24,13 @@ class BannerController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Banner());
+        $grid = new Grid(new Confirmation());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
-        $grid->column('content', __('Content'));
-        $grid->column('link', __('Link'));
+        $grid->column('transaction_id', __('Transaction id'));
         $grid->column('image', __('Image'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('deleted_at', __('Deleted at'));
 
         return $grid;
     }
@@ -46,16 +43,13 @@ class BannerController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Banner::findOrFail($id));
+        $show = new Show(Confirmation::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
-        $show->field('content', __('Content'));
-        $show->field('link', __('Link'));
+        $show->field('transaction_id', __('Transaction id'));
         $show->field('image', __('Image'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('deleted_at', __('Deleted at'));
 
         return $show;
     }
@@ -67,11 +61,9 @@ class BannerController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Banner());
+        $form = new Form(new Confirmation());
 
-        $form->text('title', __('Title'));
-        $form->textarea('content', __('Content'));
-        $form->url('link', __('Link'));
+        $form->number('transaction_id', __('Transaction id'));
         $form->image('image', __('Image'));
 
         return $form;

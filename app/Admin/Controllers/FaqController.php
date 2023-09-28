@@ -6,16 +6,16 @@ use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Grid;
 use OpenAdmin\Admin\Show;
-use \App\Models\Banner;
+use \App\Models\Faq;
 
-class BannerController extends AdminController
+class FaqController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Banner';
+    protected $title = 'Faq';
 
     /**
      * Make a grid builder.
@@ -24,16 +24,13 @@ class BannerController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Banner());
+        $grid = new Grid(new Faq());
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
-        $grid->column('content', __('Content'));
-        $grid->column('link', __('Link'));
-        $grid->column('image', __('Image'));
+        $grid->column('question', __('Question'));
+        $grid->column('answer', __('Answer'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('deleted_at', __('Deleted at'));
 
         return $grid;
     }
@@ -46,16 +43,13 @@ class BannerController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Banner::findOrFail($id));
+        $show = new Show(Faq::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
-        $show->field('content', __('Content'));
-        $show->field('link', __('Link'));
-        $show->field('image', __('Image'));
+        $show->field('question', __('Question'));
+        $show->field('answer', __('Answer'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('deleted_at', __('Deleted at'));
 
         return $show;
     }
@@ -67,12 +61,10 @@ class BannerController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Banner());
+        $form = new Form(new Faq());
 
-        $form->text('title', __('Title'));
-        $form->textarea('content', __('Content'));
-        $form->url('link', __('Link'));
-        $form->image('image', __('Image'));
+        $form->text('question', __('Question'));
+        $form->text('answer', __('Answer'));
 
         return $form;
     }

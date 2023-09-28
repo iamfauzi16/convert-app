@@ -26,6 +26,11 @@ class Transaction extends Model
     return $this->belongsTo(BankUser::class);
   }
 
+  public function confirmation()
+  {
+    return $this->hasOne(Confirmation::class);
+  }
+
 
 
 }

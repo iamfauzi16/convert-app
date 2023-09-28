@@ -23,5 +23,7 @@ Route::group([
     $router->resource('banks', BankController::class);
     $router->resource('bank-users', BankUserController::class);
     $router->resource('number-transfers', NumberTransferController::class);
+    $router->resource('confirmations', ConfirmationController::class);
+    $router->resource('faqs', FaqController::class);
 
 });

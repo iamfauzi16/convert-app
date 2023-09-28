@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Provider;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TransactionController extends Controller
 {
@@ -28,12 +28,12 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        $user_id = Auth::user()->id;
+
 
         $request->validate([
             'provider_id' => 'required',
             'bank_user_id' => 'required',
-            'user_id' => 'required',
+         
             'no_handphone' => 'required',
             'amount' => 'required|numeric',
             'convert' => 'nullable|numeric',
@@ -45,25 +45,33 @@ class TransactionController extends Controller
 
         $convert = $request->amount * $rate;
 
-        if ($request->amount <= 30000) {
-            return redirect()->route('transaction.create')->withErrors(['amount' => 'Minimal transaksi Rp. 30.000']);
+        if ($request->amount < 30000) {
+            Alert::warning('Warning', 'Minimal Pulsa Harus Rp. 30.000');
+            return redirect()->route('transaction.create' , $provider->id);
         }
 
-        $transactions = New Transaction;
+        if($request->amount > 200000) {
+            Alert::warning('Warning', 'Maaf Maksimal Transaksi Rp. 200.000/hari');
+            return redirect()->route('transaction.create' , $provider->id);
 
-        $transactions->provider_id = $provider->id;
-        $transactions->bank_user_id = $request->bank_user_id;
-        $transactions->user_id = $user_id;
-        $transactions->no_handphone = $request->no_handphone;
+        } else {
 
-        $transactions->amount = $request->amount;
-        $transactions->convert = $convert;
-        $transactions->status = "Pending";
-        $transactions->save();
+            $transactions = New Transaction;
 
+            $transactions->provider_id = $provider->id;
+            $transactions->bank_user_id = $request->bank_user_id;
+    
+            $transactions->no_handphone = $request->no_handphone;
+    
+            $transactions->amount = $request->amount;
+            $transactions->convert = $convert;
+            $transactions->status = "Pending";
+            $transactions->save();
+    
+            Alert::success('Congrats', 'Convert Pulsa Berhasil Silahkan Menunggu Proses!');
+    
+            return redirect()->route('root');
+        }
 
-        dd($transactions);
-
-        return redirect()->route('transaction.create', $provider->id)->with('success', 'Transaksi berhasil dibuat');
     }
 }

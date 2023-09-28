@@ -9,19 +9,15 @@
 
     <title>{{ $title }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body>
+    @include('sweetalert::alert')
     <div id="app">
-       <x-navbar />
-
-        <main class="container py-4">
+       <x-navbar />s
+        <main style="min-height: 100vh;">
             {{ $slot }}
         </main>
 
