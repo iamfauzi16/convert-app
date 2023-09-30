@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('status');
             $table->string('no_handphone');
             $table->foreignId('provider_id')->constrained('providers')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('bank_user_id')->constrained('bank_users')->cascadeOnUpdate()->cascadeOnDelete();   
+            $table->foreignId('bank_user_id')->constrained('bank_users')->cascadeOnUpdate()->cascadeOnDelete();  
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete(); 
             $table->timestamps();
         });
     }

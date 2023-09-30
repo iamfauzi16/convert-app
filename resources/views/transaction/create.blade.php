@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <h1 class="text-center mb-4 text-white">Silahkan Convert Pulsa</h1>
+                    <h1 class="text-center mb-4 text-dark">Silahkan Convert Pulsa</h1>
                     <form action="{{ route('transaction-web.store') }}" class="bg-white p-4 rounded-4 shadow-sm"
                         method="POST">
                         @csrf
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
-                                <label for="phone">Nomer Handphone</label>
+                                <label for="phone">Nomer Handphone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('no_handphone') is-invalid @enderror"
                                     id="phone" placeholder="Masukkan Nomer Handphone" name="no_handphone">
                                 @error('no_handphone')
@@ -37,12 +37,13 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
-                                <label for="nominal">Nominal</label>
+                                <label for="nominal">Nominal <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('amount') is-invalid @enderror"
                                     id="amount" placeholder="Masukkan Nominal Pulsa" name="amount">
                                 @error('amount')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <p class="fst-italic text-danger fs-6 fw-light">pastikan saldo pulsa min. 30.000</p>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -53,10 +54,10 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
-                                <label for="payment_method">Metode Pembayaran</label>
+                                <label for="payment_method">Nomor Rekening <span class="text-danger">*</span></label>
                                 <select class="form-select @error('bank_user_id') is-invalid @enderror"
                                     id="payment_method" aria-label="Default select example" name="bank_user_id">
-                                    <option selected>Pilih Metode Pembayaran</option>
+                                    <option selected>Pilih Nomor Rekening</option>
 
                                     @forelse ($bankUsers as $item)
                                         <option value="{{ $item->id }}">
@@ -92,8 +93,8 @@
                 $("#amount").on('input', function() {
                     var inputAmount = $(this).val();
                     var rate = {{ $provider->rate ?? 0 }};
+                    
                     var hasilConvert = inputAmount * rate;
-
                     $("#convert").val("Rp. " + hasilConvert);
                 });
             });

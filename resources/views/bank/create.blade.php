@@ -1,7 +1,7 @@
-<x-app-layout>
-    <section id="bank" class="my-4">
+<x-app-layout title="Tambah Rekening">
+    <section id="bank" class="container my-5">
         <h1>Tambah Rekening</h1>
-        <div class="card bg-white">
+        <div class="card bg-white mt-3">
             <div class="card-body">
                 <form action="{{ route('bank-user.store') }}" method="POST">
                     @csrf
@@ -17,13 +17,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="nama_pemilik" class="form-label">Nama Pemilik</label>
-                        <input type="text" name="name" id="nama" class="form-control">
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Pemilik">
                     </div>
                     <div class="mb-3">
                         <label for="number_bank" class="form-label">Nomor Rekening</label>
-                        <input type="text" name="number_bank" id="number_bank" class="form-control">
+                        <input type="text" name="number_bank" id="number_bank" class="form-control" placeholder="1234 567 789">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary mt-4">Tambah Rekening</button>
                 </form>
             </div>
 

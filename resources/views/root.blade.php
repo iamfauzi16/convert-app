@@ -1,4 +1,4 @@
-<x-app-layout title="Home | Selamat Datang Nikmati Layanan Convert Pulsa">
+<x-app-layout title="Selamat Datang Nikmati Layanan Convert Pulsa">
     <section id="banner">
         <div class="glide my-5">
             <div class="glide__track" data-glide-el="track">
@@ -63,7 +63,7 @@
                     <h1 class="fw-semibold text-white">Kita siap membantu kamu <span class="text-warning fw-bold">24
                             Jam</span></h1>
                     <p class="text-white h5">Hubungi kami jika ada yang ingin ditanyakan</p>
-                    <a href="#" class="btn btn-outline-light btn-lg fw-semibold mt-3 ">Hubungi Kami</a>
+                    <a href="https://wa.me/628561193850" target="__blank" class="btn btn-outline-light btn-lg fw-semibold mt-3 ">Hubungi Kami</a>
                 </div>
             </div>
         </div>
@@ -74,33 +74,29 @@
         <div class="row mt-3 gap-3 bg-white p-4 rounded-4">
             <div class="col-md-12 py-4">
                 <div class="accordion" id="accordionPanelsStayOpenExample">
-                    @forelse ($faqs as $faq)
-                        <div class="accordion-item ">
+                    @forelse ($faqs as $key => $faq)
+                        <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button bg-white text-dark fw-semibold" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
-                                    aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                    data-bs-toggle="collapse" data-bs-target="#faq-{{ $key }}"
+                                    aria-expanded="{{ $key === 0 ? 'true' : 'false' }}"
+                                    aria-controls="faq-{{ $key }}">
                                     {{ $faq->question }}
                                 </button>
                             </h2>
-                            @if ($faq->id === 1)
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                                    <div class="accordion-body">
-                                        <p class="h5 text-dark">{{ $faq->answer }}</p>
-                                    </div>
+
+                            <div id="faq-{{ $key }}"
+                                class="accordion-collapse collapse {{ $key === 0 ? 'show' : '' }}">
+                                <div class="accordion-body">
+                                    <p class="h5 text-dark">{{ $faq->answer }}</p>
                                 </div>
-                            @else
-                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-                                    <div class="accordion-body">
-                                        <p class="h5 text-dark">{{ $faq->answer }}</p>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
-                    @endif
-                @empty
+                    @empty
+                        <div class="bg-light p-3">
+                            <p class="text-secondary text-center">Tidak ada FAQ</p>
+                        </div>
                     @endforelse
-
-
                 </div>
             </div>
     </section>

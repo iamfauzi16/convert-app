@@ -7,13 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title }}</title>
+    <title>{{ config('app.name') }} App | {{ $title }}</title>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('styles')
 </head>
-<body>
+<body style="background-color: white;">
     @include('sweetalert::alert')
     <div id="app">
        <x-navbar />s

@@ -11,13 +11,13 @@
                     <h3 class="fw-semibold">Selamat Datang</h3>
                     <p class="text-secondary">Silahkan login terlebih dahulu!</p>
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Lengkap</label>
                             <input id="name" type="text"
                                 class="form-control @error('name') is-invalid @enderror" name="name"
-                                value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                 required autocomplete="name" autofocus>
 
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="email" class="form-label">Email</label>
                             <input id="email" type="email"
                                 class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email">
+                                required autocomplete="email">
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -40,11 +40,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email">
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password"
+                              required autocomplete="password">
 
-                            @error('email')
+                            @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

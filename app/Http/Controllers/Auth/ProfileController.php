@@ -16,7 +16,8 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $bankUsers = BankUser::where('user_id', auth()->user()->id)->get();
+        $user_id = auth()->user()->id;
+        $bankUsers = BankUser::where('user_id', $user_id)->paginate(1);  
         return view('auth.profile', compact('bankUsers'));
     }
 }

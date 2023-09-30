@@ -1,5 +1,5 @@
 <x-app-layout title="My Account">
-  <section class="my-4">
+  <section class="my-5 container">
     <h1>My Account</h1>
     <div class="my-3">
       <div class="row ">
@@ -32,6 +32,8 @@
         </div>
         <div class="col-md-6 col">
           <div class="card bg-white">
+          <h3 class="p-3">List Rekening Kamu</h3>
+
             <div class="card-body">
               @forelse ( $bankUsers as $bankPribadi )
                 <div class="card">
@@ -49,10 +51,27 @@
                 <div class="card">
                   <div class="card-body">
                     <h1>Belum ada data</h1>
-                    <a href="{{ route('bank-user.create') }}" class="btn btn-primary">Tambah Rekening</a> 
+                    
                   </div>
                 </div>
               @endforelse
+
+              <nav class="mt-3">
+                <ul class="pagination">
+                  <li class="page-item {{ $bankUsers->previousPageUrl() ? '' : 'disabled' }}">
+                    <a class="page-link" href="{{ $bankUsers->previousPageUrl() }}">Previous</a>
+                  </li>
+                  @foreach ($bankUsers as $page => $url)
+                    <li class="page-item {{ $page == $bankUsers->currentPage() ? 'active' : '' }}">
+                      <a class="page-link" href="{{ $url }}">{{ $url->id }}</a>
+                    </li>
+                  @endforeach
+                  <li class="page-item {{ $bankUsers->nextPageUrl() ? '' : 'disabled' }}">
+                    <a class="page-link" href="{{ $bankUsers->nextPageUrl() }}">Next</a>
+                  </li>
+                </ul>
+              </nav>
+              
             <a href="{{ route('bank-user.create') }}" class="btn btn-primary mt-3">Tambah Rekening</a> 
 
             </div>

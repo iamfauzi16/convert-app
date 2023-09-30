@@ -6,16 +6,20 @@ use App\Models\Provider;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        Auth::user();
     }
     public function index()
     {
-        $transactions = Transaction::all();
+
+        $user_id = auth()->user()->id;
+
+        $transactions = Transaction::where('user_id', $user_id)->get();
 
         return view('transaction.index', compact('transactions'));
     }
@@ -30,6 +34,7 @@ class TransactionController extends Controller
     {
 
 
+        
         $request->validate([
             'provider_id' => 'required',
             'bank_user_id' => 'required',
@@ -38,11 +43,12 @@ class TransactionController extends Controller
             'amount' => 'required|numeric',
             'convert' => 'nullable|numeric',
             'status' => 'nullable',
+          
         ]);
 
         $provider = Provider::find($request->provider_id);
         $rate = $provider->rate;
-
+        $user_id = auth()->user()->id;
         $convert = $request->amount * $rate;
 
         if ($request->amount < 30000) {
@@ -66,11 +72,12 @@ class TransactionController extends Controller
             $transactions->amount = $request->amount;
             $transactions->convert = $convert;
             $transactions->status = "Pending";
+            $transactions->user_id = $user_id;
             $transactions->save();
     
             Alert::success('Congrats', 'Convert Pulsa Berhasil Silahkan Menunggu Proses!');
     
-            return redirect()->route('root');
+            return redirect()->route('confirmation.transaction', $transactions->id);
         }
 
     }

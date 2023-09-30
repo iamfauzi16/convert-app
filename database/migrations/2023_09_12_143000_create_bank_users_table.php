@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('bank_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bank_id')->constrained('banks')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('nama')->unique();
+            $table->string('nama');
             $table->integer('number_bank')->unique();
-            // $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

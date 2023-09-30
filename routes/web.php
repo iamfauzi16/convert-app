@@ -8,6 +8,7 @@ use App\Http\Controllers\BankUserController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\ConfirmationController;
 
 
 /*
@@ -26,7 +27,7 @@ Route::get('/', [RootController::class, 'index'])->name('root');
 
 Auth::routes();
 
-Route::get('home' ,[HomeController::class, 'index']);
+Route::get('home' ,[HomeController::class, 'index'])->name('home');
 Route::get('providers', [ProviderController::class, 'index']);
 
 Route::get('providers/{id}/transactions', [ProviderController::class, 'transactionPerProvider'])->name('transaction.create');
@@ -44,4 +45,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bank-user/create', [BankUserController::class, 'create'])->name('bank-user.create');
     Route::post('bank-user', [BankUserController::class, 'store'])->name('bank-user.store');
 
+    Route::get('/confirmation-transaction/{id}', [ConfirmationController::class, 'create'])->name('confirmation.transaction');
+    
 });

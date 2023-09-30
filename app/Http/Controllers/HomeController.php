@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\BankUser;
 use App\Models\Provider;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -15,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        Auth::user();
     }
 
     /**
@@ -25,8 +28,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $banners = Banner::all();
+
+        $users_id = auth()->user()->id;
+
         $providers = Provider::all();
-        return view('home');
+        $bankUsers = BankUser::where('user_id', $users_id)->count();
+        $transactions = Transaction::where('user_id', $users_id)->count();
+
+        $transactionPendings = Transaction::where('status', 'Pending')
+            ->where('user_id', $users_id)
+            ->latest('updated_at')
+            ->count();
+
+        $transactionConfirmeds = Transaction::where('status', 'Confirmed')
+            ->where('user_id', $users_id)
+            ->latest('updated_at')
+            ->count();
+
+
+        return view('home', compact('providers','transactions', 'bankUsers', 'transactionPendings', 'transactionConfirmeds'));
     }
 }

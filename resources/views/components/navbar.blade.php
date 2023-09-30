@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm fixed-top">
   <div class="container">
       <a class="navbar-brand" href="{{ url('/') }}">
          Convert Pulsa
@@ -24,6 +24,15 @@
                       </li>
                   @endif
               @else
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">Home</a>
+              </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('transaction-web.index') }}">History Transaksi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('bank-user.create') }}">Tambah Bank</a>
+                  </li>
                   <li class="nav-item dropdown">
                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           {{ Auth::user()->name }}

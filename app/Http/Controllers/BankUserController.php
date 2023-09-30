@@ -6,12 +6,14 @@ use App\Models\Bank;
 use App\Models\BankUser;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+
 class BankUserController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth');
+        Auth::user();
      }
     public function create()
     {
@@ -28,7 +30,7 @@ class BankUserController extends Controller
             'bank_id' => 'required',
             'nama' => 'required',
             'number_bank' => 'required',
-            'user_id' => 'required', 
+            'user_id' => 'nullable', 
         ]);
 
         $bankUser = BankUser::create([
